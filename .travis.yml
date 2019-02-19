@@ -1,27 +1,59 @@
-sudo: required 
+sudo: required
 language: generic
-dist: xenial
 notifications:
   email:
     on_success: change
     on_failure: always
     recipients:
-      - ros-contributions@amazon.com
-      - travis-build@platform-notifications.robomaker.aws.a2z.com
+      - abbyxu@amazon.com
 env:
+  global:
+    - GITHUB_ACCOUNT=xabxx
+    - SA_NAME=aws-robomaker-sample-application-helloworld
+    - secure: "pYL1xg0sLhJpOmVBPoVmM8kfdHC3XN7UhXvwAS8Zd9vfoG5hRutrP8X6i9WIB8YjF82nKrK/+RKZ+Vvezs/3nfpZl2cjGlX6eApa2kPi5i9pfYMWttUGzeHTR9Wofa/WtRcY5hGT6Uh1T1OM7LUjK45Y1a1yRKOckHT9oYXr+IiMe9jdtyKuHgr3mRi8lNxpPoj+EXVUOQTnCugzEy3N+Mmd4iH6ed6d22bJAYdCDCwu+AcMGV4eU/slRqtfMdyjBRBY4WSa2UpiOexZguVyviDE4OSrW8BDKIf9KrUuMkn1m81Zx+sCT3dyE330PHnBrenl+HqVR+JIDzGCtbMpgDpXYa0J61uUj0hoNJdtbdWtsgh7JsTnQcAHyr525eOF11pTRLSvMeU0VZqcost0PKhvFZOPS7WTqYMZy5d/2hF3AwyJzRtO7iTtEntkMLmVCQp9SEL18ARNirosUXHs9bHFWpyfKW5CEWq04TAiEFDrIxMbK8ENpozHt0AmzHa4cFCloBNOQRtX5zYJ35xcMXwUuWlmPKDJiCIOqolik8c+sKSUso/8o9YVJ0tTt5GclbqETbagiDfzbsAMR/EapWLUGaH/4iKtcNZTP1iVSvInl59rqu9FYrCu2lOFDtLJDSbNW0mLCPmnyUBbGRJD8mX8ID8HI9/DSH7brvzrr5s="
+    - secure: "O3kPDFpkKi6Shf1+U9XzcTbyqWeLDuMPt8W+hvi+TZKLZOZJK7tuSjFI1VLimAfAQ+9b5Wn+skUb1YAYo6lOc7+HzFibBx/WTN0ZgM7Z7VvmY1w+tQxuCqJ4NC2ItBouq7UHDsH/JMUfMLzCH2bLM5gCnIJCNl++n4Px+vezeHygpQH45S4ph3ci6BmLCQYsh8Sy/4Dt15EMcpsY1v0euHsit+UqODn02Y3abGBvupXIjZq7utcAuXJlqa+daKS2NcOhz04sR8BrFkzRj5CCwuG1um2NWD2KD8hJqvJj0akCB6obmd+OuHLtaN7jVUNJINTBwdVpQwQs8QPSONM8rt0lGn9DHXSxFY5jfokATDoAviUIKva7dNByqliFOPKdAnrR87KWEzBx3VihZlUOUoZgy8GK0Y6KzMnZRzkHHgBUVjXDI/NVqPN/hWh9EErqJnJKYusZFH1h32vvLMHoyuelpbQpwufxuQdV83Rv+aqvQur5Ac+qDtjgu1SwSW/Y2959l777UTnWx2yH9q4mppdYZboBSVtDs1GlQNGq4J4Hr8w2sQvx0cwytjzHj3h6mOXl6BCruifI7YeIHyC2TfGbAUd2DT8vdI9TdigBYTPWbaurYGdcNeHFBypC+KEbEpS90TqK/Zz0fwEttTb6JQds7iLwuAr1jpaub8Y3mNs="
+    - AWS_DEFAULT_REGION=us-west-2
+    - CODE_PIPELINE_NAME=travis-test
   matrix:
-    - ROS_DISTRO="kinetic" ROS_REPOSITORY_PATH=http://packages.ros.org/ros/ubuntu ROS_CI_DESKTOP="`lsb_release -cs`"
-before_install:
-  - sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu $ROS_CI_DESKTOP main\" > /etc/apt/sources.list.d/ros-latest.list"
-  - sudo apt-key adv --keyserver hkp://ha.pool.sks-keyservers.net:80 --recv-key 421C365BD9FF1F717815A3895523BAEEB01FA116
-  - sudo apt-get update -qq
-  - sudo apt-get install dpkg
-  - sh -c "echo $ROS_CI_DESKTOP"
-  - sudo apt-get install -y python-catkin-pkg python-rosdep python-wstool ros-$ROS_DISTRO-ros-base
-  - source /opt/ros/$ROS_DISTRO/setup.bash
-  # Prepare rosdep to install dependencies.
-  - sudo rosdep init
+    - ROS_DISTRO=kinetic ROS_VERSION=1
+    - ROS_DISTRO=lunar   ROS_VERSION=1
+    - ROS_DISTRO=melodic ROS_VERSION=1
+    - ROS_DISTRO=bouncy  ROS_VERSION=2
+    - ROS_DISTRO=crystal ROS_VERSION=2
+matrix:
+  allow_failures:
+    - env: ROS_DISTRO=lunar   ROS_VERSION=1
+    - env: ROS_DISTRO=melodic ROS_VERSION=1
+    - env: ROS_DISTRO=bouncy  ROS_VERSION=2
+    - env: ROS_DISTRO=crystal ROS_VERSION=2
 install:
-  - sudo make setup
+  - git clone https://github.com/xabxx/travis-scripts.git .ros_ci
 script:
-  - make build
+  - chmod +x .ros_ci/*
+  - mkdir shared/
+  - mv .ros_ci/ shared/
+  - docker pull ros:"$ROS_DISTRO"-ros-core
+  - docker run -v "$PWD/shared:/shared" -e ROS_DISTRO="$ROS_DISTRO" -e ROS_VERSION="$ROS_VERSION"
+    -e SA_NAME="$SA_NAME" --name "$ROS_DISTRO"-container -dit ros:"$ROS_DISTRO"-ros-core
+    /bin/bash
+  - docker exec "$ROS_DISTRO"-container /bin/bash -c 'mkdir -p /"$ROS_DISTRO"_ws/'
+  - docker cp $TRAVIS_BUILD_DIR "$ROS_DISTRO"-container:/"$ROS_DISTRO"_ws/
+  - docker exec "$ROS_DISTRO"-container /bin/bash -c 'sh /shared/.ros_ci/ros"$ROS_VERSION"_sa_build.sh' || travis_terminate 1;
+before_deploy:
+  - pwd
+  - cd shared
+  - zip -r output *
+  - cd ..
+  - pwd
+  - mkdir -p to_upload
+  - mv shared/output.zip to_upload/output.zip
+deploy:
+- provider: s3
+  local_dir: to_upload
+  skip_cleanup: true
+  on:
+    all_branches: true
+  bucket: sa-cloudwatch/helloworld
+after_success:
+  - pip install --user awscli
+  - aws codepipeline start-pipeline-execution --name $CODE_PIPELINE_NAME
