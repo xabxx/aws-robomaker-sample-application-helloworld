@@ -53,7 +53,7 @@ deploy:
   skip_cleanup: true
   on:
     all_branches: true
-  bucket: sa-cloudwatch/helloworld
+  bucket: sa-cloudwatch
 after_success:
   - pip install --user awscli
   - aws codepipeline start-pipeline-execution --name $CODE_PIPELINE_NAME
