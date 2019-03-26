@@ -28,6 +28,8 @@ before_deploy:
 - ".ros_ci/before_deploy.sh"
 deploy:
 - provider: script
-  script: bash .ros_ci/codepipeline_deploy.sh
+  access_key_id: "$AWS_ACCESS_KEY_ID"
+  secret_access_key: "$AWS_SECRET_ACCESS_KEY"
+  script: . .ros_ci/codepipeline_deploy.sh
   on:
     branch: master
