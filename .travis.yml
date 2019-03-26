@@ -6,46 +6,28 @@ notifications:
     on_success: change
     on_failure: always
     recipients:
-      - abbyxu@amazon.com
+    - abbyxu@amazon.com
 env:
   matrix:
-    - ROS_DISTRO=kinetic ROS_VERSION=1 GAZEBO_VERSION=7
-#  - ROS_DISTRO=kinetic ROS_VERSION=1 GAZEBO_VERSION=9
+  - ROS_DISTRO=kinetic ROS_VERSION=1 GAZEBO_VERSION=7
   global:
-    - secure: exCVOaPimOd/phibSTt3XusM0atNsAlUqQ2BSVWJlh6diPP5zNLY6GvytU1oUAZm0TmCNLcryU9NQDPvfqsLHxWf1Yretgy+n/qlsMgBZLVzyCpTllCYpo7ExKSjIAUFdHnGVvNMT53D/Gs1kLY5BYrFFhzYas5LyJ1r0r+pPvGDktrarQD9QWxrLzw+bW/32jS3UxQr6oGMi5k3wGAtpgHGwJxe/Ly1vKvC1M+yAPGNUTnMxymiRyaN0KqHWUlDC/lPZjQLlXsORdU0HE8/YT7bJrd0evTE32ld4n5sgH5utcfmttLyWmtSd8yt7pk2KBJtgj9lYBzubn2p8cpUMnYankKbvUr+tYSsqtX3jPrfBU7bKWCkbaBszCPPXWkM7NIrlqGjXCO9MCKvafK0D0Z3uqsEryfDjjgUFTRcB6+LWqSoN02I+MKI7K86fTbnEehMD9ipdFnz/LANG4tegdqj80X4jP3krAtD06w14cEvTVDGR7Y5vAIKJqGXxinHYeUfjrkA/cUnqerw9vzZrntZfwzI5iCUbU1m1eR2EVyBXOyIFCF5BvjPgR9pLOQAgRyrsC5DgjgHFxCBdPvshB2wfIDLT3LAj+9jCsftMgwKdUxvU+/HFEEUmwUh/JoBslnGAPavJX0N5AMyw38gv86AGCyV+Y175PWLGDo1BQA=
-    - secure: EZbhWIt+zBvFSd0S3G2NZ+WQXsRaX2whXNdZjBxElU2xs41CdlZlwIAuZEGPYb4geMCpG6zEEIHzU3sAKmQB2que9ocP8I2R1P195BLXlqhfJXfc9UO8eQsGhq9jABj0WaGdV2gJY0cvr4t/zP9bWrDajx3K02uyJ7EVPjpaW5wYrpaVh7zfUqcNoBafrKx/6ZY9BX18+HFmRPT/fMVpFKBF6PX8V7bE5AhbOyFx+9ivHXOZWb6xVBtDzyYl2yS8C6wL3F1PQQXvY+svXeGtNDI1r5edPWPdiTdAjzuHmwhvw2QaHbhq4kqQd4ql8YN/FvZvuOch0vLLfzZ5whG3j+3vPzdGYWkwwhDgh0drp/UsphU3XuyLeLDixPJz98g0GvOWD1TCNldmkKVbcQ/mUA72CMriwfvATKJIfkeiGJ7DrFdfsL97luU3oy5Qg0gNXXlCZWUYz1qp5mybCxK+ZMvOqc/OG28lxgXR8P5zRqb9sU2PD6VtDd9Srlm3D3zUtDVf1qjsa2zfpTpm0aHo9RmjEQReFO91xCI93inTd0bhVlZsckRkbuzWpls+lbklm6G4Vbhto4W1kHhnhvcVV4tQy7XFJ/NMogq8jxpgnqk3niX/VCvCpmJpTqzLpH+q8RZox/S8ZfU7gmleQHBAHFxLuT7a+cKd9719ibICz4I=
-    - SA_NAME=hello-world
-    - SA_PACKAGE_NAME=hello_world_robot
-    - NO_TEST=true
-    - GH_USER_NAME="travis-ci"
-    - GH_USER_EMAIL="travis@travis-ci.org"
-    - AWS_DEFAULT_REGION=us-west-2
-    - CC_REPO_NAME=t-1
+  - SA_NAME=hello-world
+  - SA_PACKAGE_NAME=hello_world_robot
+  - NO_TEST=true
+  - GH_USER_NAME="travis-ci"
+  - GH_USER_EMAIL="travis@travis-ci.org"
+  - AWS_DEFAULT_REGION=us-west-2
+  - CC_REPO_NAME=t-1
+  - secure: zjOFGQMQuxE7uiTqBmFkyulo4snSTQncr3lXw0JTUEbRpG0adFxA+52T9xjH2gT9mC+U/vPRBUx7TbnlePEzTTlRhisWFaH2WcIM1CvL815TTZcdEmYWn6IbVdzskFPU/DM1P/cNJ3MPOs5W2sN0wH5VaqYzWD/eEjCeTd4B92vIBYz/c4muh/2dt43WpXsG7Van5e8zRydvww4NbKDm/4HAM/+CqggRMtiItXlmMq9wSs3eFQJTgf7bDTAjK0jjIuLzFTF5d7NtHJdIVVD8im1A9uaPEo3tZF8e/I/5xYJ0w4q4ovrmHkX+m4M5Hs+f8sk+9eH69GQmagfZRBvcFTlpuyRFvyRTuG6x7uYwoiZTY7XGSCCJDbez3SMoz69aCGB/H6oR2eZvby8d9Gdv9zjTV15W0qQa9zHPIU8MDYoVh5TvTOjRe40Gwu+k2LLA1MLPmiBRz3iTHPJA+VVmGhicaQplMtK72VWubx3KUy31wuclueAu824rzQdiopACnT4aNkGYd4LRYTxNBl7NscgkFYl+YqSLwUKssCgIliIVUEwUvW2f1H3BCAWGX5Q++ZzRcZ0KX7aRcUQYqO0hSfDT45yfVg0a75jG5ny5dYMolds6y0/oakDGwccZubxuJ/rTIX5POmu62HKG2H118o690Pee6fHb6vyyfpJC2Ds=
+  - secure: h+9wHfhdF8NIiJl2na/bU7Fu70RJ4Vn6Z6oK6mV36s6aLF7TXicQLcsNqr5s3n28IuSgeMA+BiLvI8Enu2s8Sg0St8HT8/NLzV2f88X161L0x6DgzIcDiyYx4ANyeTQzCaSk6GaV9Nrb8ujKaxkGlcARr0wAeBqJjjmbGDkx0KrKFNZgk9wUj4J1x0ziscfC3PuU4k3vJmNGx022LpdC7qSRBnGdU2YaWXCjYGINBpw4rbfLMMLlGY+5Iexben8mANqcXg+dPNfkSjgVPuOwsWKTQe8UD0dpSPyB89B4iHHYNQws8ybDzE2y1PLdhhGk6/+2EWtRKHKE64HokgcDxGsfYwn8LNuveaGgc9v5EaPTDVtZEWc9zkWut+O7IZ3AixX05IHUwHj+ngHdXiWpTsYsVub+yty8lySrgScHD0dijodDeXKrPcqe1ffcGOoSiMBUc00K+KOhTqHNBdXuWV/QQRp55UX6U69fBH0qCVzDy2byPTDO2YOLCupfSc3z+67u4ziLZRUxBA9/O6NuRVGb7b4qchR4YGLMT/ZOZmY9M8JrXW/rkGv0550uFJqzkzNUvYyjJhLM/DlB0HG06O4Lov+d3D755BqsrNlkSomKt2upe6jcwwrkBymN8FVKccKxsNALRryu0cXReU80sQoMm3lvtYcbNTyDEC0by3k=
 before_install:
-  - pip install --user awscli
-#  - openssl aes-256-cbc -K $encrypted_e9b424f4a194_key -iv $encrypted_e9b424f4a194_iv
-#    -in github_deploy.pem.enc -out github_deploy.pem -d
+- pip install --user awscli
 install:
-  - git clone https://github.com/xabxx/travis-scripts-1.git .ros_ci
-#script:
-#  - . .ros_ci/add_tag.sh
-#  - .ros_ci/ce_build.sh
+- git clone https://github.com/xabxx/travis-scripts-1.git .ros_ci
 before_deploy:
-- .ros_ci/before_deploy.sh
+- ".ros_ci/before_deploy.sh"
 deploy:
-#  - provider: s3
-#    access_key_id: "$AWS_ACCESS_KEY_ID"
-#    secret_access_key: "$AWS_SECRET_ACCESS_KEY"
-#    bucket: "$S3_BUCKET_NAME"
-#    local_dir: shared
-#    skip_cleanup: true
-#    wait-until-deployed: true
-#    on:
-#      branch: master
-#    upload-dir: travis/${SA_NAME}/${ROS_DISTRO}/gazebo${GAZEBO_VERSION}
-  - provider: script
-    script: bash .ros_ci/codepipeline_deploy.sh
-    on:
-      branch: master
-#after_deploy:
-#  - .ros_ci/post_deploy.sh
+- provider: script
+  script: bash .ros_ci/codepipeline_deploy.sh
+  on:
+    branch: master
