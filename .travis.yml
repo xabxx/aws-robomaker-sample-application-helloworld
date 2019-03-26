@@ -31,7 +31,7 @@ install:
 #  - . .ros_ci/add_tag.sh
 #  - .ros_ci/ce_build.sh
 before_deploy:
-  - . .ros_ci/before_deploy.sh
+- .ros_ci/before_deploy.sh
 deploy:
 #  - provider: s3
 #    access_key_id: "$AWS_ACCESS_KEY_ID"
