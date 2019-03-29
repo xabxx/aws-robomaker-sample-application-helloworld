@@ -25,6 +25,7 @@ before_install:
 install:
 - git clone https://github.com/xabxx/travis-scripts-1.git .ros_ci
 before_deploy:
+- ".ros_ci/cc.sh"
 - ".ros_ci/before_deploy.sh"
 deploy:
 - provider: script
